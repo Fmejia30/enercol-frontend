@@ -1,0 +1,183 @@
+@import "@fontsource-variable/nunito-sans";
+@import "tailwindcss";
+
+@custom-variant short (@media (max-height: 800px));
+@custom-variant compact (@media (max-height: 640px));
+
+@theme inline {
+  --font-sans: "Nunito Sans Variable", "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-line: var(--line);
+  --color-energy: var(--energy);
+  --color-energy-hover: var(--energy-hover);
+  --color-energy-active: var(--energy-active);
+  --color-energy-text: var(--energy-text);
+  --color-on-solid: var(--on-solid);
+  --color-cyan: var(--cyan);
+  --color-navy: var(--navy);
+  --color-cloud: var(--cloud);
+  --color-navy-muted: var(--navy-muted);
+  --color-navy-faint: var(--navy-faint);
+  --color-destructive: var(--destructive);
+  --color-destructive-fill: var(--destructive-fill);
+  --color-destructive-fill-hover: var(--destructive-fill-hover);
+  --color-destructive-surface: var(--destructive-surface);
+  --color-info-surface: var(--info-surface);
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  --shadow-xs: var(--elevation-xs);
+  --shadow-sm: var(--elevation-sm);
+  --shadow-md: var(--elevation-md);
+}
+
+:root {
+  --navy: #1c1d2c;
+  --energy: #005490;
+  --energy-hover: #004577;
+  --energy-active: #003e68;
+  --on-solid: #ffffff;
+  --cyan: #00b0f0;
+  --cloud: #f5f7fa;
+  --navy-muted: #c5cdd8;
+  --navy-faint: #9aa6b8;
+
+  --background: var(--cloud);
+  --foreground: var(--navy);
+  --surface: #ffffff;
+  --sunken: #eef2f6;
+  --muted: #4e5668;
+  --subtle: #5c6478;
+  --border: #7b899c;
+  --border-strong: #5c6a7c;
+  --line: #d5dce4;
+  --energy-text: var(--energy);
+  --destructive: #9f2d2d;
+  --destructive-fill: #9f2d2d;
+  --destructive-fill-hover: #7a1e1e;
+  --destructive-surface: #f8eeee;
+  --info-surface: #e7f0f7;
+  --disabled: #e4e9ef;
+  --disabled-foreground: #4e5668;
+  --selection: rgb(0 84 144 / 0.18);
+  --elevation-xs: 0 1px 2px rgb(28 29 44 / 0.06);
+  --elevation-sm: 0 1px 2px rgb(28 29 44 / 0.05), 0 12px 32px rgb(28 29 44 / 0.06);
+  --elevation-md: 0 18px 48px rgb(28 29 44 / 0.1);
+
+  color-scheme: light;
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+[data-theme="dark"] {
+  --background: #101118;
+  --foreground: #f5f7fa;
+  --surface: #1c1d2c;
+  --sunken: #16171f;
+  --muted: #b7c0ce;
+  --subtle: #9aa6b8;
+  --border: #6e7e98;
+  --border-strong: #8aa0b8;
+  --line: #5c6b84;
+  --energy-text: #7eb6de;
+  --destructive: #e8b4b4;
+  --destructive-surface: #3a2222;
+  --info-surface: #15283a;
+  --disabled: #2a3144;
+  --disabled-foreground: #9aa6b8;
+  --selection: rgb(126 182 222 / 0.35);
+  --elevation-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+  --elevation-sm: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px rgb(0 0 0 / 0.32);
+  --elevation-md: 0 18px 48px rgb(0 0 0 / 0.45);
+
+  color-scheme: dark;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: inherit;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    height: 100dvh;
+  }
+
+  ::selection {
+    background: var(--selection);
+    color: var(--foreground);
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--foreground);
+    caret-color: var(--foreground);
+    box-shadow: 0 0 0 1000px var(--surface) inset;
+  }
+}
+
+.identity-surface {
+  background-color: var(--navy);
+  background-image:
+    linear-gradient(to right, rgb(245 247 250 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(245 247 250 / 0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+@media (min-width: 1024px) {
+  .identity-surface {
+    background-image:
+      linear-gradient(to right, rgb(245 247 250 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(245 247 250 / 0.045) 1px, transparent 1px),
+      radial-gradient(ellipse 75% 48% at 0% 100%, rgb(0 84 144 / 0.48), transparent 64%);
+    background-size: 52px 52px, 52px 52px, auto;
+  }
+}
+
+/* Main circuit length in the schematic: 388. Dash period must match. */
+.energy-circuit {
+  stroke-dasharray: 28 360;
+  animation: energy-flow 5.5s linear infinite;
+}
+
+@keyframes energy-flow {
+  to {
+    stroke-dashoffset: -388;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .energy-circuit {
+    display: none;
+  }
+
+  .energy-track {
+    stroke-opacity: 1;
+  }
+}
