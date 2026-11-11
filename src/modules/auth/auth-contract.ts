@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { knownRoles } from '@/modules/access/roles.ts'
-import { ApiError } from '@/shared/lib/api-error.ts'
+import { knownRoles } from '../access/roles.ts'
+import { ApiError } from '../../shared/lib/api-error.ts'
 
 export const supportedChallenges = [
   'NEW_PASSWORD_REQUIRED',

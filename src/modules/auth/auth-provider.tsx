@@ -58,18 +58,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (signal?.aborted) return
           await adoptContinuation(continuation, signal, setSnapshot, snapshotRef)
         }),
-      submitChallenge: (submission, signal) =>
+      submitChallenge: (submission, signal, beforePublish) =>
         share(pendingTask, async () => {
           const current = snapshotRef.current
           if (current.status !== 'challenge') return
           const continuation = await answerChallenge(current.challenge.id, submission, signal)
           if (signal?.aborted) return
-          await adoptContinuation(continuation, signal, setSnapshot, snapshotRef)
+          await adoptContinuation(continuation, signal, setSnapshot, snapshotRef, beforePublish)
         }),
-      cancelChallenge: () => {
+      cancelChallenge: (notice) => {
         if (snapshotRef.current.status !== 'challenge') return
         setCsrfToken(null)
-        const next: AuthSnapshot = { status: 'unauthenticated', sessionNotice: null }
+        const message = typeof notice === 'string' ? notice.trim() : ''
+        const next: AuthSnapshot = { status: 'unauthenticated', sessionNotice: message || null }
         snapshotRef.current = next
         setSnapshot(next)
       },
@@ -154,6 +155,7 @@ async function adoptContinuation(
   signal: AbortSignal | undefined,
   setSnapshot: (snapshot: AuthSnapshot) => void,
   snapshotRef: { current: AuthSnapshot },
+  beforePublish?: () => Promise<void>,
 ) {
   if (!continuation.authenticated) {
     setCsrfToken(null)
@@ -168,27 +170,9 @@ async function adoptContinuation(
   }
 
   setCsrfToken(continuation.csrfToken)
+  let identity: Awaited<ReturnType<typeof readIdentity>>
   try {
-    const identity = await readIdentity(signal)
-    if (signal?.aborted) return
-    if (identity.userId !== continuation.user.id) {
-      setCsrfToken(null)
-      const next: AuthSnapshot = {
-        status: 'unauthenticated',
-        sessionNotice: 'La identidad no coincide con la sesión.',
-      }
-      snapshotRef.current = next
-      setSnapshot(next)
-      return
-    }
-    const next: AuthSnapshot = {
-      status: 'authenticated',
-      user: continuation.user,
-      identity,
-      sessionNotice: null,
-    }
-    snapshotRef.current = next
-    setSnapshot(next)
+    identity = await readIdentity(signal)
   } catch (error) {
     if (signal?.aborted || isAbortError(error)) return
     setCsrfToken(null)
@@ -197,6 +181,35 @@ async function adoptContinuation(
     setSnapshot(next)
     throw toApiError(error)
   }
+  if (signal?.aborted) return
+  if (identity.userId !== continuation.user.id) {
+    setCsrfToken(null)
+    const next: AuthSnapshot = {
+      status: 'unauthenticated',
+      sessionNotice: 'La identidad no coincide con la sesión.',
+    }
+    snapshotRef.current = next
+    setSnapshot(next)
+    return
+  }
+  let deferred: unknown = null
+  if (beforePublish) {
+    try {
+      await beforePublish()
+    } catch (error) {
+      if (signal?.aborted || isAbortError(error)) return
+      deferred = error
+    }
+  }
+  const next: AuthSnapshot = {
+    status: 'authenticated',
+    user: continuation.user,
+    identity,
+    sessionNotice: null,
+  }
+  snapshotRef.current = next
+  setSnapshot(next)
+  if (deferred) throw deferred
 }
 
 function share(pendingTask: { current: Promise<void> | null }, task: () => Promise<void>) {

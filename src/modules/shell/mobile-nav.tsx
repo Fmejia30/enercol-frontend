@@ -12,6 +12,8 @@ export function MobileNav() {
     if (!open) return
     const panel = panelRef.current
     const previous = document.activeElement
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     closeRef.current?.focus()
 
     function onKeyDown(event: KeyboardEvent) {
@@ -35,6 +37,7 @@ export function MobileNav() {
 
     document.addEventListener('keydown', onKeyDown)
     return () => {
+      document.body.style.overflow = previousOverflow
       document.removeEventListener('keydown', onKeyDown)
       if (previous instanceof HTMLElement) previous.focus()
     }
@@ -64,7 +67,7 @@ export function MobileNav() {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="absolute inset-y-0 left-0 flex w-[min(20rem,calc(100vw-3rem))] flex-col bg-surface shadow-md"
+            className="absolute inset-y-0 left-0 flex w-[min(20rem,calc(100vw-3rem))] flex-col overflow-hidden bg-surface shadow-md"
           >
             <h2 id={titleId} className="sr-only">
               Navegación

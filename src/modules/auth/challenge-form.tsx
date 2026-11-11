@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useForm, type FieldErrors } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeOff } from 'lucide-react'
 import { z } from 'zod'
 import type { AuthChallenge } from '@/modules/auth/auth-contract.ts'
 import { isSupportedChallenge } from '@/modules/auth/auth-contract.ts'
@@ -28,8 +27,7 @@ export function ChallengeForm({ challenge }: { challenge: AuthChallenge }) {
   const { submitChallenge, cancelChallenge } = useAuth()
   const [pending, setPending] = useState(false)
   const [notice, setNotice] = useState<Notice | null>(null)
-  const [passwordVisible, setPasswordVisible] = useState(false)
-  const schema = useMemo(() => challengeSchema(challenge), [challenge])
+  const schema = useMemo(() => challengeSchema(), [])
   const supported = isSupportedChallenge(challenge.name)
 
   const {
@@ -53,7 +51,7 @@ export function ChallengeForm({ challenge }: { challenge: AuthChallenge }) {
     setNotice(null)
     setPending(true)
     try {
-      await submitChallenge(submissionFrom(challenge, values))
+      await submitChallenge(submissionFrom(values))
     } catch (error) {
       if (isAbortError(error)) return
       setNotice({
@@ -84,22 +82,20 @@ export function ChallengeForm({ challenge }: { challenge: AuthChallenge }) {
     requestAnimationFrame(() => setFocus(target))
   }
 
-  if (!supported || (challenge.name !== 'NEW_PASSWORD_REQUIRED' && !codeChallenges.has(challenge.name))) {
+  if (!supported || !codeChallenges.has(challenge.name)) {
     return (
       <div className="grid gap-5">
         <Alert tone="error" title="Verificación no disponible">
           El servidor solicitó el desafío {challenge.name}. Esta pantalla no envía una respuesta para ese
           paso.
         </Alert>
-        <Button type="button" variant="secondary" onClick={cancelChallenge}>
+        <Button type="button" variant="secondary" onClick={() => cancelChallenge()}>
           Volver al inicio de sesión
         </Button>
       </div>
     )
   }
 
-  const passwordError = errors.newPassword?.message
-  const confirmError = errors.confirmPassword?.message
   const codeError = errors.code?.message
 
   return (
@@ -115,83 +111,19 @@ export function ChallengeForm({ challenge }: { challenge: AuthChallenge }) {
         </div>
       ) : null}
 
-      {challenge.name === 'NEW_PASSWORD_REQUIRED' ? (
-        <>
-          <div className="grid gap-2">
-            <Label htmlFor="challenge-password">Contraseña nueva</Label>
-            <div className="relative">
-              <Input
-                id="challenge-password"
-                className="pr-12"
-                type={passwordVisible ? 'text' : 'password'}
-                autoComplete="new-password"
-                aria-invalid={passwordError ? true : undefined}
-                aria-describedby={passwordError ? 'challenge-password-error' : undefined}
-                {...register('newPassword')}
-              />
-              <button
-                type="button"
-                className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-energy-text focus-visible:ring-inset focus-visible:outline-none"
-                aria-pressed={passwordVisible}
-                aria-label={passwordVisible ? 'Ocultar contraseña' : 'Mostrar contraseña'}
-                onClick={() => setPasswordVisible((visible) => !visible)}
-              >
-                {passwordVisible ? (
-                  <EyeOff className="size-5" strokeWidth={1.75} aria-hidden="true" />
-                ) : (
-                  <Eye className="size-5" strokeWidth={1.75} aria-hidden="true" />
-                )}
-              </button>
-            </div>
-            {passwordError ? (
-              <FieldError id="challenge-password-error">{passwordError}</FieldError>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="challenge-confirm">Confirme la contraseña</Label>
-            <Input
-              id="challenge-confirm"
-              type={passwordVisible ? 'text' : 'password'}
-              autoComplete="new-password"
-              aria-invalid={confirmError ? true : undefined}
-              aria-describedby={confirmError ? 'challenge-confirm-error' : undefined}
-              {...register('confirmPassword')}
-            />
-            {confirmError ? <FieldError id="challenge-confirm-error">{confirmError}</FieldError> : null}
-          </div>
-          {challenge.requiredAttributes.map((name) => {
-            const message = errors.attributes?.[name]?.message
-            const fieldId = `challenge-attribute-${name}`
-            return (
-              <div key={name} className="grid gap-2">
-                <Label htmlFor={fieldId}>{name}</Label>
-                <Input
-                  id={fieldId}
-                  autoComplete="off"
-                  aria-invalid={message ? true : undefined}
-                  aria-describedby={message ? `${fieldId}-error` : undefined}
-                  {...register(`attributes.${name}`)}
-                />
-                {message ? <FieldError id={`${fieldId}-error`}>{message}</FieldError> : null}
-              </div>
-            )
-          })}
-        </>
-      ) : (
-        <div className="grid gap-2">
-          <Label htmlFor="challenge-code">Código</Label>
-          <Input
-            id="challenge-code"
-            inputMode="text"
-            autoComplete="one-time-code"
-            maxLength={32}
-            aria-invalid={codeError ? true : undefined}
-            aria-describedby={codeError ? 'challenge-code-error' : undefined}
-            {...register('code')}
-          />
-          {codeError ? <FieldError id="challenge-code-error">{codeError}</FieldError> : null}
-        </div>
-      )}
+      <div className="grid gap-2">
+        <Label htmlFor="challenge-code">Código</Label>
+        <Input
+          id="challenge-code"
+          inputMode="text"
+          autoComplete="one-time-code"
+          maxLength={32}
+          aria-invalid={codeError ? true : undefined}
+          aria-describedby={codeError ? 'challenge-code-error' : undefined}
+          {...register('code')}
+        />
+        {codeError ? <FieldError id="challenge-code-error">{codeError}</FieldError> : null}
+      </div>
 
       {notice ? (
         <Alert tone="error" title={notice.title}>
@@ -202,52 +134,14 @@ export function ChallengeForm({ challenge }: { challenge: AuthChallenge }) {
       <Button type="submit" className="w-full" loading={pending}>
         {pending ? 'Verificando' : 'Continuar'}
       </Button>
-      <Button type="button" variant="secondary" disabled={pending} onClick={cancelChallenge}>
+      <Button type="button" variant="secondary" disabled={pending} onClick={() => cancelChallenge()}>
         Volver al inicio de sesión
       </Button>
     </form>
   )
 }
 
-function challengeSchema(challenge: AuthChallenge) {
-  if (challenge.name === 'NEW_PASSWORD_REQUIRED') {
-    return z
-      .object({
-        code: z.string(),
-        newPassword: z
-          .string()
-          .min(1, 'Ingrese la contraseña nueva.')
-          .max(256, 'La contraseña nueva admite hasta 256 caracteres.'),
-        confirmPassword: z.string(),
-        attributes: z.record(z.string(), z.string()),
-      })
-      .superRefine((value, context) => {
-        if (value.newPassword !== value.confirmPassword) {
-          context.addIssue({
-            code: 'custom',
-            path: ['confirmPassword'],
-            message: 'La confirmación no coincide con la contraseña nueva.',
-          })
-        }
-        for (const name of challenge.requiredAttributes) {
-          const entry = value.attributes[name]?.trim() ?? ''
-          if (!entry) {
-            context.addIssue({
-              code: 'custom',
-              path: ['attributes', name],
-              message: 'Ingrese este dato.',
-            })
-          } else if (entry.length > 2048) {
-            context.addIssue({
-              code: 'custom',
-              path: ['attributes', name],
-              message: 'El dato admite hasta 2048 caracteres.',
-            })
-          }
-        }
-      })
-  }
-
+function challengeSchema() {
   return z.object({
     code: z.string().trim().min(1, 'Ingrese el código.').max(32, 'El código admite hasta 32 caracteres.'),
     newPassword: z.string(),
@@ -256,13 +150,6 @@ function challengeSchema(challenge: AuthChallenge) {
   })
 }
 
-function submissionFrom(challenge: AuthChallenge, values: ChallengeValues) {
-  if (challenge.name === 'NEW_PASSWORD_REQUIRED') {
-    const attributes: Record<string, string> = {}
-    for (const name of challenge.requiredAttributes) {
-      attributes[name] = values.attributes[name]?.trim() ?? ''
-    }
-    return { newPassword: values.newPassword, attributes }
-  }
+function submissionFrom(values: ChallengeValues) {
   return { code: values.code.trim() }
 }

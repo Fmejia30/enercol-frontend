@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "test": "node --experimental-strip-types --test src/modules/access/*.test.ts src/app/*.test.ts src/modules/home/*.test.ts",
+    "test": "node --experimental-strip-types --test src/modules/access/*.test.ts src/app/*.test.ts src/modules/home/*.test.ts src/modules/users/*.test.ts src/modules/profile/*.test.ts src/modules/auth/*.test.ts src/modules/shell/*.test.ts",
     "preview": "vite preview"
   },
   "dependencies": {

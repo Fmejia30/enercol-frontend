@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import { activationDescription, activationTitle } from '@/modules/auth/activation.ts'
+import { ActivationForm } from '@/modules/auth/activation-form.tsx'
 import { ChallengeForm } from '@/modules/auth/challenge-form.tsx'
 import { IdentityPanel } from '@/modules/auth/identity-panel.tsx'
 import { LoginForm } from '@/modules/auth/login-form.tsx'
@@ -10,10 +12,7 @@ import { appName } from '@/config/env.ts'
 function challengeCopy(name: string) {
   switch (name) {
     case 'NEW_PASSWORD_REQUIRED':
-      return {
-        title: 'Actualice su contraseña',
-        description: 'La cuenta exige una contraseña nueva antes de entrar.',
-      }
+      return { title: activationTitle, description: activationDescription }
     case 'SMS_MFA':
       return {
         title: 'Código por mensaje',
@@ -86,12 +85,25 @@ export function LoginPage() {
             </header>
             {snapshot.status === 'unauthenticated' && snapshot.sessionNotice ? (
               <div className="mb-5">
-                <Alert tone="error" title="Sesión no disponible">
+                <Alert
+                  tone="error"
+                  title={
+                    snapshot.sessionNotice.includes('contraseña temporal')
+                      ? 'Activación no disponible'
+                      : 'Sesión no disponible'
+                  }
+                >
                   {snapshot.sessionNotice}
                 </Alert>
               </div>
             ) : null}
-            {challenge ? <ChallengeForm key={challenge.id} challenge={challenge} /> : <LoginForm />}
+            {challenge?.name === 'NEW_PASSWORD_REQUIRED' ? (
+              <ActivationForm key={challenge.id} challenge={challenge} />
+            ) : challenge ? (
+              <ChallengeForm key={challenge.id} challenge={challenge} />
+            ) : (
+              <LoginForm />
+            )}
             <p className="mt-8 flex gap-3 text-sm leading-6 text-muted short:mt-5">
               <span className="mt-2 size-1.5 shrink-0 bg-energy-text" aria-hidden="true" />
               Reservado a usuarios autorizados por su organización.

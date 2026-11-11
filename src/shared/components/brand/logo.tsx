@@ -33,20 +33,22 @@ export function LogoMark({ tone = 'inverse', className }: LogoMarkProps) {
 
 type LogoLockupProps = {
   tone?: LogoTone
+  compact?: boolean
   className?: string
 }
 
-export function LogoLockup({ tone = 'inverse', className }: LogoLockupProps) {
+export function LogoLockup({ tone = 'inverse', compact = false, className }: LogoLockupProps) {
   return (
     <div
       className={cn(
         'flex items-center gap-3',
         tone === 'inverse' ? 'text-cloud' : 'text-foreground',
+        compact && 'justify-center',
         className,
       )}
     >
-      <LogoMark tone={tone} />
-      <span className="text-lg font-semibold tracking-[-0.02em]">EnerCol</span>
+      <LogoMark tone={tone} className={compact ? 'size-8' : undefined} />
+      <span className={cn('text-lg font-semibold tracking-[-0.02em]', compact && 'sr-only')}>EnerCol</span>
     </div>
   )
 }

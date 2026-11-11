@@ -17,8 +17,8 @@ export type AuthSnapshot =
 export type AuthContextValue = {
   snapshot: AuthSnapshot
   login: (values: LoginValues, signal?: AbortSignal) => Promise<void>
-  submitChallenge: (submission: ChallengeSubmission, signal?: AbortSignal) => Promise<void>
-  cancelChallenge: () => void
+  submitChallenge: (submission: ChallengeSubmission, signal?: AbortSignal, beforePublish?: () => Promise<void>) => Promise<void>
+  cancelChallenge: (notice?: string) => void
   logout: (signal?: AbortSignal) => Promise<void>
 }
 

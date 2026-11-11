@@ -4,7 +4,8 @@ import { navigation } from '../../config/navigation.ts'
 import { authorizationFromAuth } from './authorization.ts'
 import { meetsRequirement, visibleWhenAllowed } from './permission-requirement.ts'
 
-const sections = ['Inicio', 'Solicitudes postventa', 'Análisis técnicos', 'Informes técnicos']
+const account = ['Inicio', 'Mi perfil']
+const sections = [...account, 'Solicitudes postventa', 'Análisis técnicos', 'Informes técnicos']
 
 function identity(roles: readonly string[]) {
   return authorizationFromAuth({
@@ -73,14 +74,14 @@ describe('acumulación de permisos', () => {
 
 describe('usuario autenticado sin roles', () => {
   it('conserva el inicio y oculta las secciones protegidas', () => {
-    assert.deepEqual(labels([]), ['Inicio'])
+    assert.deepEqual(labels([]), account)
     assert.equal(meetsRequirement(identity([]), { permissions: ['workspace:access'] }), false)
   })
 })
 
 describe('ADMINISTRATOR explícito', () => {
   it('ve las secciones y un permiso que los otros roles no tienen', () => {
-    assert.deepEqual(labels(['ADMINISTRATOR']), sections)
+    assert.deepEqual(labels(['ADMINISTRATOR']), [...sections, 'Usuarios'])
     assert.equal(meetsRequirement(identity(['ADMINISTRATOR']), { permissions: ['users:manage'] }), true)
     assert.equal(
       meetsRequirement(identity(['SPECIALIST', 'VALIDATOR']), { permissions: ['users:manage'] }),
@@ -91,7 +92,7 @@ describe('ADMINISTRATOR explícito', () => {
 
 describe('roles desconocidos', () => {
   it('no conceden secciones protegidas', () => {
-    assert.deepEqual(labels(['ADMIN', 'ESPECIALISTA_TECNICO']), ['Inicio'])
+    assert.deepEqual(labels(['ADMIN', 'ESPECIALISTA_TECNICO']), account)
     assert.equal(
       meetsRequirement(identity(['DESCONOCIDO']), { permissions: ['reports:read'] }),
       false,
@@ -105,7 +106,7 @@ describe('estado de carga', () => {
     assert.equal(meetsRequirement(loading, { permissions: ['workspace:access'] }), false)
     assert.deepEqual(
       visibleWhenAllowed(navigation, loading).map((item) => item.label),
-      ['Inicio'],
+      account,
     )
   })
 })
@@ -116,6 +117,14 @@ describe('integración con navegación', () => {
       if (item.label === 'Inicio') {
         assert.equal(item.to, '/app')
         assert.equal(item.requirement, undefined)
+      } else if (item.label === 'Mi perfil') {
+        assert.equal(item.to, '/app/profile')
+        assert.equal(item.section, 'Cuenta')
+        assert.equal(item.requirement, undefined)
+      } else if (item.label === 'Usuarios') {
+        assert.equal(item.to, '/app/users')
+        assert.equal(item.section, 'Administración')
+        assert.deepEqual(item.requirement, { permissions: ['users:manage'] })
       } else {
         assert.equal(item.to, undefined)
       }
