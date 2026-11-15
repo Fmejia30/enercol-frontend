@@ -74,8 +74,12 @@ Archivo: `src/shared/components/ui/badge.tsx`.
 | Tono | Dónde |
 | --- | --- |
 | `neutral` | Superficie clara |
-| `signal` | Solo sobre Midnight Navy. Incluye un punto cian |
-| `danger` | Estado de error compacto |
+| `signal` | Solo sobre navy institucional. Incluye un punto de la señal |
+| `success` | Completado o observación confirmada |
+| `warning` | Pendiente de revisión o análisis desactualizado |
+| `info` | Estado abierto o informativo |
+| `draft` | Borrador |
+| `danger` | Error o ejecución no completada |
 
 No se usa como sustituto de un título ni se agrupan varios badges para simular navegación.
 
@@ -158,7 +162,7 @@ Ver la tabla de [DESIGN-TOKENS.md](./DESIGN-TOKENS.md). No se anima la entrada d
 
 - No añadir un segundo botón primario en la misma vista.
 - No poner iconos dentro de los campos si no ejecutan una acción.
-- No usar Electric Cyan como color de foco o de texto sobre fondo claro.
+- No usar la señal teal como color de foco o de texto sobre fondo claro.
 - No mostrar métricas inventadas en el panel de identidad ni en el espacio de trabajo.
 - No abrir registro público, recuperación de clave ni proveedores sociales en esta fase.
 - No conectar todavía Cognito, NestJS ni una sesión real.

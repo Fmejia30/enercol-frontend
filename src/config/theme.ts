@@ -22,6 +22,6 @@ export function applyTheme(preference: ThemePreference) {
   root.style.colorScheme = resolved
   document
     .querySelector('meta[name="theme-color"]')
-    ?.setAttribute('content', resolved === 'dark' ? '#101118' : '#F5F7FA')
+    ?.setAttribute('content', resolved === 'dark' ? '#17191D' : '#F3F5F9')
   return resolved
 }

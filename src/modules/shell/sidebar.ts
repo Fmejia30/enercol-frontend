@@ -1,6 +1,6 @@
 export const sidebarWidths = {
-  expanded: '18rem',
-  collapsed: '4.75rem',
+  expanded: '16rem',
+  collapsed: '4.5rem',
 } as const
 
 export type SidebarMode = 'drawer' | 'expanded' | 'collapsed'

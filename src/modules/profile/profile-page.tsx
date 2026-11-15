@@ -29,7 +29,7 @@ export function ProfilePage() {
   }, [attention])
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl min-w-0 flex-col gap-8">
+    <div className="mx-auto flex w-full max-w-6xl min-w-0 flex-col gap-8">
       <header className="border-b border-line pb-6">
         <h1 className="text-3xl font-semibold tracking-[-0.03em] text-balance">Mi perfil</h1>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
@@ -77,7 +77,7 @@ export function ProfilePage() {
               <Input id={emailId} value={profile.email ?? 'Sin correo'} readOnly aria-readonly="true" />
             </div>
             <div>
-              <h2 className="text-xs font-semibold tracking-[0.14em] text-subtle uppercase">Roles</h2>
+              <h2 className="text-sm font-semibold">Roles</h2>
               <div className="mt-3">
                 <RoleBadges roles={profile.roles} />
               </div>

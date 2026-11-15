@@ -47,10 +47,10 @@ describe('dashboard por rol', () => {
   })
 })
 
-describe('áreas previstas', () => {
-  it('no apuntan a rutas y conservan una descripción', () => {
+describe('áreas de trabajo', () => {
+  it('apuntan a una ruta y conservan una descripción', () => {
     for (const area of workspaceAreas(identity(['ADMINISTRATOR']))) {
-      assert.equal(area.to, undefined)
+      assert.equal(typeof area.to, 'string')
       assert.equal(areaDescription(area.label).includes('Próximamente'), false)
       assert.equal(areaDescription(area.label).length > 0, true)
     }

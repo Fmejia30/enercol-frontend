@@ -48,8 +48,7 @@ El color del texto sigue [COLOR-SYSTEM.md](./COLOR-SYSTEM.md). En particular:
 - Texto principal sobre claro: `--foreground`.
 - Texto de apoyo sobre claro: `--muted`.
 - Placeholder: `--subtle`.
-- Texto de acento sobre navy: `--cyan`.
-- Electric Cyan no se usa como color de texto sobre Cloud White ni sobre blanco.
+- Texto de acento sobre navy: `--cyan` (`#69BAF2`).
 
 ## Numerales y diagrama
 

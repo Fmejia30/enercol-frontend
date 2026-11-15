@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { toApiError } from '@/shared/lib/api-error.ts'
-import { getCsrfToken, notifyUnauthorized } from '@/shared/lib/csrf.ts'
+import { csrfHeaders, notifyUnauthorized } from '@/shared/lib/csrf.ts'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/$/, '')
 
@@ -17,8 +17,9 @@ api.interceptors.request.use((config) => {
   if (!baseURL) {
     throw new axios.AxiosError('Falta VITE_API_BASE_URL.', 'ERR_INVALID_URL', config)
   }
-  const token = getCsrfToken()
-  if (token) config.headers.set('X-CSRF-Token', token)
+  for (const [name, value] of Object.entries(csrfHeaders())) {
+    config.headers.set(name, value)
+  }
   return config
 })
 

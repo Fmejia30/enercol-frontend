@@ -10,31 +10,40 @@ Cada token de color de interfaz tiene una utilidad del mismo nombre.
 
 | Variable | Utilidad | Valor |
 | --- | --- | --- |
-| `--navy` | `bg-navy`, `text-navy` | `#1C1D2C` |
-| `--energy` | `bg-energy` | `#005490` |
-| `--energy-text` | `text-energy-text`, `ring-energy-text` | `#005490` en claro, `#7EB6DE` en oscuro |
-| `--energy-hover` | `bg-energy-hover` | `#004577` |
-| `--energy-active` | `bg-energy-active` | `#003E68` |
-| `--cyan` | `bg-cyan`, `text-cyan`, `border-cyan` | `#00B0F0` |
-| `--cloud` | `bg-cloud` | `#F5F7FA` |
-| `--background` | `bg-background` | `#F5F7FA` |
-| `--foreground` | `text-foreground` | `#1C1D2C` |
-| `--surface` | `bg-surface` | `#FFFFFF` |
-| `--sunken` | `bg-sunken` | `#EEF2F6` |
-| `--muted` | `text-muted` | `#4E5668` |
-| `--subtle` | `text-subtle`, `placeholder:text-subtle` | `#5C6478` |
-| `--navy-muted` | `text-navy-muted` | `#C5CDD8` |
-| `--navy-faint` | `text-navy-faint` | `#9AA6B8` |
-| `--border` | `border-border` | `#7B899C` |
-| `--border-strong` | `border-border-strong` | `#5C6A7C` |
-| `--line` | `border-line` | `#D5DCE4` |
-| `--destructive` | `text-destructive`, `border-destructive` | `#9F2D2D` en claro, `#E8B4B4` en oscuro |
-| `--destructive-fill` | `bg-destructive-fill` | `#9F2D2D` |
-| `--destructive-fill-hover` | `bg-destructive-fill-hover` | `#7A1E1E` |
-| `--destructive-surface` | `bg-destructive-surface` | `#F8EEEE` |
-| `--info-surface` | `bg-info-surface` | `#E7F0F7` |
-| `--disabled` | `bg-disabled` | `#E4E9EF` |
-| `--disabled-foreground` | `text-disabled-foreground` | `#4E5668` |
+| `--navy` | `bg-navy`, `text-navy` | `#101C31` |
+| `--energy` | `bg-energy` | `#194B91` en claro, `#7CB7E8` en oscuro |
+| `--on-energy` | `text-on-energy` | `#FFFFFF` en claro, `#17191D` en oscuro |
+| `--energy-text` | `text-energy-text`, `ring-energy-text` | `#194B91` en claro, `#7CB7E8` en oscuro |
+| `--energy-hover` | `bg-energy-hover` | `#153F7A` en claro, `#91C5ED` en oscuro |
+| `--energy-active` | `bg-energy-active` | `#123665` en claro, `#5D9FD2` en oscuro |
+| `--cyan` | `bg-cyan`, `text-cyan`, `border-cyan` | `#69BAF2` |
+| `--cloud` | `bg-cloud` | `#EDF4FF` |
+| `--background` | `bg-background` | `#F3F5F9` en claro, `#17191D` en oscuro |
+| `--foreground` | `text-foreground` | `#263449` en claro, `#E7E9ED` en oscuro |
+| `--surface` | `bg-surface` | `#FFFFFF` en claro, `#202329` en oscuro |
+| `--elevated` | `bg-elevated` | `#FFFFFF` en claro, `#30353D` en oscuro |
+| `--sunken` | `bg-sunken` | `#EDF1F7` en claro, `#292D34` en oscuro |
+| `--accent-soft` | `bg-accent-soft` | `#EDF1F7` en claro, `#263746` en oscuro |
+| `--muted` | `text-muted` | `#66758A` en claro, `#A0A7B2` en oscuro |
+| `--subtle` | `text-subtle`, `placeholder:text-subtle` | `#66758A` en claro, `#A0A7B2` en oscuro |
+| `--navy-muted` | `text-navy-muted` | `#A9B9CE` |
+| `--navy-faint` | `text-navy-faint` | `#8FA4BC` |
+| `--border` | `border-border` | `#DCE3ED` en claro, `#7A7E85` en oscuro |
+| `--border-strong` | `border-border-strong` | `#C5D0E0` en claro, `#8E939B` en oscuro |
+| `--line` | `border-line` | `#DCE3ED` en claro, `#7A7E85` en oscuro |
+| `--destructive` | `text-destructive`, `border-destructive` | `#B42318` en claro, `#F0B4B4` en oscuro |
+| `--destructive-fill` | `bg-destructive-fill` | `#B42318` |
+| `--destructive-fill-hover` | `bg-destructive-fill-hover` | `#912018` |
+| `--destructive-surface` | `bg-destructive-surface` | `#FDECEC` en claro, `#3A2222` en oscuro |
+| `--success` | `text-success` | `#067647` en claro, `#7DCEA0` en oscuro |
+| `--success-surface` | `bg-success-surface` | `#E7F6EF` en claro, `#143028` en oscuro |
+| `--warning` | `text-warning` | `#B54708` en claro, `#E8B86D` en oscuro |
+| `--warning-surface` | `bg-warning-surface` | `#FDF4E7` en claro, `#3A2E16` en oscuro |
+| `--draft` | `text-draft` | `#263449` en claro, `#E7E9ED` en oscuro |
+| `--draft-surface` | `bg-draft-surface` | `#EDF1F7` en claro, `#292D34` en oscuro |
+| `--info-surface` | `bg-info-surface` | `#E6F2FC` en claro, `#263746` en oscuro |
+| `--disabled` | `bg-disabled` | `#EDF1F7` en claro, `#292D34` en oscuro |
+| `--disabled-foreground` | `text-disabled-foreground` | `#66758A` en claro, `#A0A7B2` en oscuro |
 | `--on-solid` | `text-on-solid` | `#FFFFFF` |
 
 El significado de cada color está en [COLOR-SYSTEM.md](./COLOR-SYSTEM.md).

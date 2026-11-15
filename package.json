@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "test": "node --experimental-strip-types --test src/modules/access/*.test.ts src/app/*.test.ts src/modules/home/*.test.ts src/modules/users/*.test.ts src/modules/profile/*.test.ts src/modules/auth/*.test.ts src/modules/shell/*.test.ts",
+    "test": "node --experimental-strip-types --test src/modules/access/*.test.ts src/app/*.test.ts src/modules/home/*.test.ts src/modules/users/*.test.ts src/modules/profile/*.test.ts src/modules/auth/*.test.ts src/modules/shell/*.test.ts src/modules/requests/*.test.ts src/shared/lib/*.test.ts",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.70.0",
+    "pdfmake": "0.3.14",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-hook-form": "^7.91.0",

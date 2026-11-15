@@ -18,13 +18,13 @@ Este manual fija las decisiones de marca de la fase 1. Los valores implementados
 
 La lectura de la energía es el concepto de la interfaz, no un eslogan de campaña. En el inicio de sesión se expresa con tres piezas:
 
-1. Un campo Midnight Navy que funciona como superficie de instrumento.
-2. Un diagrama unifilar —generación, barra, demanda— con un circuito en Electric Cyan.
+1. Un campo Institutional Navy (`#101C31`) que funciona como superficie de instrumento.
+2. Un diagrama unifilar —generación, barra, demanda— con un circuito en la señal teal.
 3. Un formulario sobre la superficie de la página, con una sola tarea: entrar.
 
-El panel de identidad permanece en Midnight Navy en los temas claro y oscuro. No se invierte. La página y los controles sí cambian de superficie.
+El panel de identidad permanece en Institutional Navy en los temas claro y oscuro. No se invierte. La página y los controles sí cambian de superficie.
 
-El cian marca la señal viva. No decora titulares sobre fondo claro.
+La señal teal marca el circuito sobre navy. No decora titulares sobre fondo claro.
 
 ## Nombre
 
@@ -40,8 +40,8 @@ El signo es un cuadrado de 36 unidades con radio 7. Dentro hay una barra vertica
 
 | Tono | Uso | Estructura | Señal |
 | --- | --- | --- | --- |
-| Inverse | Fondos Midnight Navy | Cloud White | Electric Cyan |
-| Default | Fondos Cloud White, blanco o superficie oscura | Midnight Navy en claro; Cloud White en oscuro | `--energy-text` |
+| Inverse | Fondos Institutional Navy | Cloud | `#69BAF2` |
+| Default | Fondos Cloud, blanco o superficie oscura | Tinta en claro; Cloud en oscuro | `--energy-text` |
 
 El wordmark es «EnerCol» en Nunito Sans, peso 600, tracking `-0.02em`. No se altera el espaciado entre «Ener» y «Col».
 
@@ -55,13 +55,13 @@ El área libre alrededor del lockup es, como mínimo, la altura del signo. No se
 | --- | --- | --- |
 | Mínimo digital | 24 px | 32 px de alto |
 | Interfaz | 36 px | Alto del signo más el wordmark a 18 px |
-| Favicon | 32 px, solo el signo sobre Midnight Navy | No usar el wordmark |
+| Favicon | 32 px, solo el signo sobre Institutional Navy | No usar el wordmark |
 
 ### Usos incorrectos
 
 - Rotar, deformar o aplicar sombra al signo.
 - Cambiar la señal a otro color que no sea cian sobre navy o `--energy-text` sobre claro u oscuro.
-- Poner el wordmark en Electric Cyan sobre fondo claro.
+- Poner el wordmark en teal sobre fondo claro.
 - Encerrar la marca en un círculo, una pastilla o un recuadro adicional.
 - Reconstruir el signo con otra tipografía o con un icono genérico de rayo.
 

@@ -50,7 +50,7 @@ export function ThemeToggle({ className }: { className?: string }) {
             className={cn(
               'flex size-10 items-center justify-center rounded-sm transition-colors duration-150 motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-energy-text focus-visible:outline-none',
               selected
-                ? 'bg-energy text-on-solid'
+                ? 'bg-energy text-on-energy'
                 : 'text-muted hover:bg-sunken hover:text-foreground',
             )}
             onClick={() => setPreference(option.value)}

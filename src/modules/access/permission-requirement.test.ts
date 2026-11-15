@@ -5,7 +5,7 @@ import { authorizationFromAuth } from './authorization.ts'
 import { meetsRequirement, visibleWhenAllowed } from './permission-requirement.ts'
 
 const account = ['Inicio', 'Mi perfil']
-const sections = [...account, 'Solicitudes postventa', 'Análisis técnicos', 'Informes técnicos']
+const sections = ['Inicio', 'Solicitudes postventa', 'Análisis técnicos', 'Informes técnicos', 'Mi perfil']
 
 function identity(roles: readonly string[]) {
   return authorizationFromAuth({
@@ -112,7 +112,7 @@ describe('estado de carga', () => {
 })
 
 describe('integración con navegación', () => {
-  it('mantiene las secciones próximas y las filtra con la matriz', () => {
+  it('publica análisis e informes y los filtra con la matriz', () => {
     for (const item of navigation) {
       if (item.label === 'Inicio') {
         assert.equal(item.to, '/app')
@@ -125,6 +125,16 @@ describe('integración con navegación', () => {
         assert.equal(item.to, '/app/users')
         assert.equal(item.section, 'Administración')
         assert.deepEqual(item.requirement, { permissions: ['users:manage'] })
+      } else if (item.label === 'Solicitudes postventa') {
+        assert.equal(item.to, '/app/requests')
+        assert.equal(item.end, false)
+        assert.deepEqual(item.requirement, { permissions: ['requests:read_assigned'] })
+      } else if (item.label === 'Análisis técnicos') {
+        assert.equal(item.to, '/app/analyses')
+        assert.deepEqual(item.requirement, { permissions: ['analysis:read'] })
+      } else if (item.label === 'Informes técnicos') {
+        assert.equal(item.to, '/app/reports')
+        assert.deepEqual(item.requirement, { permissions: ['reports:read'] })
       } else {
         assert.equal(item.to, undefined)
       }

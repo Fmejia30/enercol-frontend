@@ -55,7 +55,7 @@ export function MobileNav() {
         <span className="sr-only">Abrir navegación</span>
       </button>
       {open ? (
-        <div className="fixed inset-0 z-40 lg:hidden">
+        <div className="fixed inset-x-0 top-14 bottom-0 z-40 lg:hidden">
           <button
             type="button"
             className="absolute inset-0 bg-navy/60"
@@ -81,7 +81,7 @@ export function MobileNav() {
               <X className="size-5" strokeWidth={1.75} aria-hidden="true" />
               <span className="sr-only">Cerrar navegación</span>
             </button>
-            <AppNav onNavigate={() => setOpen(false)} />
+            <AppNav showAccount onNavigate={() => setOpen(false)} />
           </div>
         </div>
       ) : null}
