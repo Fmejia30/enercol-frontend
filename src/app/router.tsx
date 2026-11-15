@@ -9,6 +9,12 @@ import { HomePage } from '@/modules/home/home-page.tsx'
 import { ProfilePage } from '@/modules/profile/profile-page.tsx'
 import { ProfileCompletionGate } from '@/modules/profile/profile-completion-gate.tsx'
 import { AppShell } from '@/modules/shell/app-shell.tsx'
+import { requestsPermission } from '@/modules/requests/request-access.ts'
+import { AnalysesPage } from '@/modules/requests/analyses-page.tsx'
+import { ReportEditorPage } from '@/modules/requests/report-editor-page.tsx'
+import { ReportsPage } from '@/modules/requests/reports-page.tsx'
+import { RequestDetailPage } from '@/modules/requests/request-detail-page.tsx'
+import { RequestsPage } from '@/modules/requests/requests-page.tsx'
 import { UserDetailPage } from '@/modules/users/user-detail-page.tsx'
 import { UsersDirectoryPage } from '@/modules/users/users-directory-page.tsx'
 
@@ -36,6 +42,27 @@ export const router = createBrowserRouter([
                 children: [
                   { index: true, element: <HomePage /> },
                   { path: 'profile', element: <ProfilePage /> },
+                  {
+                    element: <PermissionGuard requirement={{ permissions: ['analysis:read'] }} />,
+                    children: [{ path: 'analyses', element: <AnalysesPage /> }],
+                  },
+                  {
+                    element: <PermissionGuard requirement={{ permissions: ['reports:read'] }} />,
+                    children: [{ path: 'reports', element: <ReportsPage /> }],
+                  },
+                  {
+                    element: <PermissionGuard requirement={requestsPermission} />,
+                    children: [
+                      { path: 'requests', element: <RequestsPage /> },
+                      { path: 'requests/:requestId', element: <RequestDetailPage /> },
+                      {
+                        element: <PermissionGuard requirement={{ permissions: ['reports:read'] }} />,
+                        children: [
+                          { path: 'requests/:requestId/reports/:reportId', element: <ReportEditorPage /> },
+                        ],
+                      },
+                    ],
+                  },
                   {
                     element: <PermissionGuard requirement={{ permissions: ['users:manage'] }} />,
                     children: [

@@ -30,7 +30,7 @@ describe('sidebar de escritorio', () => {
   it('conserva las secciones existentes', () => {
     assert.deepEqual(
       navigation.map((item) => item.label),
-      ['Inicio', 'Mi perfil', 'Solicitudes postventa', 'Análisis técnicos', 'Informes técnicos', 'Usuarios'],
+      ['Inicio', 'Solicitudes postventa', 'Análisis técnicos', 'Informes técnicos', 'Mi perfil', 'Usuarios'],
     )
   })
 })

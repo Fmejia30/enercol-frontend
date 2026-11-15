@@ -9,7 +9,11 @@ const badgeVariants = cva(
       tone: {
         neutral: 'border-line bg-surface text-foreground',
         signal: 'border-white/20 bg-transparent text-cloud',
-        danger: 'border-destructive/30 bg-destructive-surface text-destructive',
+        danger: 'border-transparent bg-destructive-surface text-destructive',
+        success: 'border-transparent bg-success-surface text-success',
+        warning: 'border-transparent bg-warning-surface text-warning',
+        info: 'border-transparent bg-info-surface text-energy-text',
+        draft: 'border-transparent bg-draft-surface text-draft',
       },
     },
     defaultVariants: {

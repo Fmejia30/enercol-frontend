@@ -10,9 +10,9 @@ export const roleLabels = {
 } as const satisfies Record<Role, string>
 
 const areaDescriptions: Record<string, string> = {
-  'Solicitudes postventa': 'Revisión prevista de los casos posteriores a la entrega.',
-  'Análisis técnicos': 'Lectura técnica prevista a partir de la solicitud.',
-  'Informes técnicos': 'Documento de conclusión previsto para cada análisis.',
+  'Solicitudes postventa': 'Casos asignados, su estado y el acceso al detalle.',
+  'Análisis técnicos': 'Ejecuciones ya registradas y sus hallazgos.',
+  'Informes técnicos': 'Borradores vinculados a un análisis exitoso.',
 }
 
 export function greetingForHour(hour: number) {
@@ -26,11 +26,13 @@ export function roleLabel(role: Role) {
 }
 
 export function areaDescription(label: string) {
-  return areaDescriptions[label] ?? 'Área prevista del producto.'
+  return areaDescriptions[label] ?? 'Sección del espacio de trabajo.'
 }
 
 export function workspaceAreas(
   authorization: Pick<Authorization, 'status' | 'hasPermission' | 'hasAllPermissions'>,
 ): NavigationItem[] {
-  return visibleWhenAllowed(navigation, authorization).filter((item) => item.to === undefined)
+  return visibleWhenAllowed(navigation, authorization).filter(
+    (item) => item.to !== undefined && item.to !== '/app' && item.section !== 'Cuenta' && item.section !== 'Administración',
+  )
 }

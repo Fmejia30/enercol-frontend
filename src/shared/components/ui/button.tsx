@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'border-transparent bg-energy text-on-solid hover:bg-energy-hover active:bg-energy-active',
+          'border-transparent bg-energy text-on-energy hover:bg-energy-hover active:bg-energy-active',
         secondary: 'border-border bg-surface text-foreground hover:bg-sunken active:bg-sunken',
         ghost:
           'border-transparent bg-transparent text-energy-text hover:bg-energy-text/10 active:bg-energy-text/15',

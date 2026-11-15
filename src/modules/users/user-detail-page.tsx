@@ -53,7 +53,7 @@ export function UserDetailPage() {
   const failure = error ? failureCopy(error) : null
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl min-w-0 flex-col gap-8">
+    <div className="mx-auto flex w-full max-w-6xl min-w-0 flex-col gap-8">
       <div>
         <Link
           to="/app/users"
@@ -140,7 +140,7 @@ function UserRecord({
         </Can>
       </div>
       <div>
-        <h2 className="text-xs font-semibold tracking-[0.14em] text-subtle uppercase">Roles actuales</h2>
+        <h2 className="text-sm font-semibold">Roles actuales</h2>
         <div className="mt-3">
           <RoleBadges roles={user.roles} />
         </div>
@@ -148,13 +148,13 @@ function UserRecord({
       <dl className="grid gap-4 sm:grid-cols-2">
         {fields.map(([label, value]) => (
           <div key={label} className="border-b border-line pb-3">
-            <dt className="text-xs font-semibold tracking-[0.12em] text-subtle uppercase">{label}</dt>
+            <dt className="text-sm font-semibold text-muted">{label}</dt>
             <dd className="mt-1 text-sm break-all text-foreground">{value}</dd>
           </div>
         ))}
         {invitation ? (
           <div className="border-b border-line pb-3">
-            <dt className="text-xs font-semibold tracking-[0.12em] text-subtle uppercase">Invitación</dt>
+            <dt className="text-sm font-semibold text-muted">Invitación</dt>
             <dd className="mt-1 text-sm text-foreground">{invitation}</dd>
           </div>
         ) : null}

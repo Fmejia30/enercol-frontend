@@ -67,7 +67,7 @@ export function UserDialog({ title, description, busy = false, onClose, children
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
-        className="absolute top-1/2 left-1/2 grid max-h-[min(40rem,calc(100dvh-2rem))] w-[min(32rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 gap-5 overflow-y-auto rounded-lg border border-line bg-surface p-5 shadow-md sm:p-6"
+        className="absolute top-1/2 left-1/2 grid max-h-[min(40rem,calc(100dvh-2rem))] w-[min(32rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 gap-5 overflow-y-auto rounded-lg border border-line bg-elevated p-5 shadow-md sm:p-6"
       >
         <div>
           <h2 id={titleId} className="text-xl font-semibold tracking-[-0.02em] text-balance">

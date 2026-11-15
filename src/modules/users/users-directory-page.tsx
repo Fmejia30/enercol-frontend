@@ -268,7 +268,7 @@ export function UsersDirectoryPage() {
                 <table className="w-full min-w-[52rem] border-collapse text-left">
                   <caption className="sr-only">Directorio de usuarios</caption>
                   <thead>
-                    <tr className="border-b border-line text-xs font-semibold tracking-[0.12em] text-subtle uppercase">
+                    <tr className="border-b border-line text-xs font-semibold text-muted">
                       <th scope="col" className="px-3 py-3 font-semibold">Usuario</th>
                       <th scope="col" className="px-3 py-3 font-semibold">Correo electrónico</th>
                       <th scope="col" className="px-3 py-3 font-semibold">Roles</th>
